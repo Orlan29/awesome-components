@@ -11,4 +11,8 @@ export class PostService {
   getPosts(): Observable<Post[]> {
     return this.http.get<Post[]>(`${environment.apiUrl}/posts`);
   }
+
+  addNewComment(comment: {comment: string, postId: number}): void {
+    console.log(comment);
+  }
 }
