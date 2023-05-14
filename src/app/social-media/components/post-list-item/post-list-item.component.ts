@@ -10,6 +10,8 @@ export class PostListItemComponent {
   @Input() post!: Post;
   @Output() postCommented = new EventEmitter<{comment: string, postId: number}>();
 
+  userName = {lastName: "Bouadou", firstName: "Brice"}
+
   onNewComment(comment: string): void {
     this.postCommented.emit({comment, postId: this.post.id})
   }
