@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { Comment } from "../../../core/models/comment.model";
 import {FormBuilder, FormControl, Validators} from "@angular/forms";
-import {animate, state, style, transition, trigger} from "@angular/animations";
+import {animate, query, state, style, transition, trigger} from "@angular/animations";
 
 @Component({
   selector: 'app-comment',
@@ -26,6 +26,11 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
         animate('500ms ease-in-out')
       ]),
       transition(':enter', [
+        query('span', [
+          style({
+            opacity: 0
+          })
+        ]),
         style({
           transform: 'translateX(-100%)',
           opacity: 0,
@@ -35,7 +40,12 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
           transform: 'translateX(0)',
           opacity: 1,
           'background-color': 'white'
-        }))
+        })),
+        query('span', [ // Permet d'animer un élément à la fois
+          animate('250ms ease-in-out', style({
+            opacity: 1
+          }))
+        ])
       ])
     ])
   ]
