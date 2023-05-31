@@ -1,13 +1,35 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { Comment } from "../../../core/models/comment.model";
 import {FormBuilder, FormControl, Validators} from "@angular/forms";
-import {animate, query, state, style, transition, trigger} from "@angular/animations";
+import {
+  animate,
+  animateChild,
+  animation,
+  group,
+  query, sequence,
+  stagger,
+  state,
+  style,
+  transition,
+  trigger, useAnimation
+} from "@angular/animations";
+import {flashAnimation} from "../../animations/flash.animation";
+import {slideAndFadeAnimation} from "../../animations/slide-and-fade.animation";
 
 @Component({
   selector: 'app-comment',
   templateUrl: './comment.component.html',
   styleUrls: ['./comment.component.scss'],
   animations: [
+    trigger('list', [
+      transition(':enter', [
+        query('@listItem', [
+          stagger(50, [ // Permet de décaler le démarrage de chauque annimation
+            animateChild()
+          ])
+        ])
+      ])
+    ]),
     trigger('listItem', [
       state('default', style({
         transform: 'scale(1)',
@@ -26,25 +48,34 @@ import {animate, query, state, style, transition, trigger} from "@angular/animat
         animate('500ms ease-in-out')
       ]),
       transition(':enter', [
-        query('span', [
+        query('.comment-text, .comment-date', [
           style({
             opacity: 0
           })
         ]),
-        style({
-          transform: 'translateX(-100%)',
-          opacity: 0,
-          'background-color': 'rgb(201, 157, 242)'
+        useAnimation(slideAndFadeAnimation, {
+          params: {
+            time: '250ms',
+            startColor: 'rgb(201, 157, 242)'
+          }
         }),
-        animate('250ms ease-in-out', style({
-          transform: 'translateX(0)',
-          opacity: 1,
-          'background-color': 'white'
-        })),
-        query('span', [ // Permet d'animer un élément à la fois
-          animate('250ms ease-in-out', style({
-            opacity: 1
-          }))
+        group([ // Permet d'annimer en parallèle
+          useAnimation(flashAnimation, {
+            params: {
+              time: '250ms',
+              flashColor: 'rgb(201, 157, 242)'
+            }
+          }),
+          query('.comment-text', [ // Permet d'animer un élément à la fois
+            animate('250ms ease-in-out', style({
+              opacity: 1
+            }))
+          ]),
+          query('.comment-date', [ // Permet d'animer un élément à la fois
+            animate('500ms ease-in-out', style({
+              opacity: 1
+            }))
+          ])
         ])
       ])
     ])
