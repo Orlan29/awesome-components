@@ -71,6 +71,7 @@ import {slideAndFadeAnimation} from "../../animations/slide-and-fade.animation";
               opacity: 1
             }))
           ]),
+
           query('.comment-date', [ // Permet d'animer un élément à la fois
             animate('500ms ease-in-out', style({
               opacity: 1
