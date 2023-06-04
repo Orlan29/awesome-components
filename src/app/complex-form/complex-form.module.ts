@@ -4,6 +4,7 @@ import {RouterModule} from "@angular/router";
 import { ComplexFormComponent } from './components/complex-form/complex-form.component';
 import {ComplexFormRoutingModule} from "./complex-form-routing.module";
 import {ComplexFormService} from "./services/complex-form.service";
+import {CommonModule} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -11,6 +12,7 @@ import {ComplexFormService} from "./services/complex-form.service";
   ],
   imports: [
     SharedModule,
+    CommonModule,
     ComplexFormRoutingModule,
     RouterModule
   ],
