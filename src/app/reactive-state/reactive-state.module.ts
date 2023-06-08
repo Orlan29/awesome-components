@@ -6,6 +6,8 @@ import { CanditatesListComponent } from './components/canditates-list/canditates
 import { SingleCandidateComponent } from './components/single-candidate/single-candidate.component';
 import {CandidatesService} from "./services/candidates.service";
 import {SharedModule} from "../shared/shared.module";
+import {MatLineModule} from "@angular/material/core";
+import {MatLegacyListModule} from "@angular/material/legacy-list";
 
 
 @NgModule({
@@ -16,7 +18,7 @@ import {SharedModule} from "../shared/shared.module";
   imports: [
     CommonModule,
     ReactiveStateRoutingModule,
-    SharedModule
+    SharedModule,
   ],
   providers: [
     CandidatesService
